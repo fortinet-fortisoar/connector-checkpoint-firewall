@@ -1,0 +1,1142 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "uuid": "26f6fe9b-58f2-486f-946a-0350c84f0009",
+      "@type": "WorkflowCollection",
+      "name": "Sample - Check Point Firewall - 1.2.0",
+      "description": "Check Point Firewall that can use for block/unblock IP, Application, URL",
+      "visible": true,
+      "image": null,
+      "recordTags": [
+        "Checkpoint",
+        "checkpoint-firewall"
+      ],
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "uuid": "df0a073d-9075-4292-8a3b-92ba9e992b2d",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Checks whether the policies that you have mentioned in the Configuration parameters section are valid or not.",
+          "name": "Validate Configuration Policies",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/f5009a9e-935b-4bd8-8b5a-f9993b5e8ae3",
+          "steps": [
+            {
+              "uuid": "f5009a9e-935b-4bd8-8b5a-f9993b5e8ae3",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "455007c5-b505-486b-8e69-d739df60354e",
+                "title": "Check Point Firewall: Validate Configuration Policies",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "d3b779d8-0e80-4203-98cb-fa4f3efc2a56",
+              "@type": "WorkflowStep",
+              "name": "Validate Configuration Policies",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "check_policies",
+                "operationTitle": "Validate Configuration Policies",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "fdd81577-5ad2-4b89-a07d-f04c702b8d98",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Validate Configuration Policies",
+              "sourceStep": "/api/3/workflow_steps/f5009a9e-935b-4bd8-8b5a-f9993b5e8ae3",
+              "targetStep": "/api/3/workflow_steps/d3b779d8-0e80-4203-98cb-fa4f3efc2a56"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "ab7a4df6-0b62-43f0-b319-a4af03785a1c",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Retrieves a list of applications and associated details from Check Point Firewall.",
+          "name": "Get Applications Detail",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/c67a79b8-f98e-4a0f-9039-19dd8d70e309",
+          "steps": [
+            {
+              "uuid": "c67a79b8-f98e-4a0f-9039-19dd8d70e309",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "9f2b3b76-8f6f-4edf-8152-b68c876f9a6a",
+                "title": "Check Point Firewall: Get Applications Detail",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "0b2638da-c491-468a-b188-e7d0aaf93199",
+              "@type": "WorkflowStep",
+              "name": "Get Applications Detail",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": {
+                  "start_index": 0,
+                  "limit": 50
+                },
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "get_list_of_applications",
+                "operationTitle": "Get Applications Detail",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "723ec90c-d517-431d-9ab5-b847d9659377",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Applications Detail",
+              "sourceStep": "/api/3/workflow_steps/c67a79b8-f98e-4a0f-9039-19dd8d70e309",
+              "targetStep": "/api/3/workflow_steps/0b2638da-c491-468a-b188-e7d0aaf93199"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "f2ef54a7-91e1-46c5-bdce-a831a8d7f799",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Blocks IP addresses using the IP Block Policy that you have specified while configuring the Check Point Firewall connector. See the Configuration parameters section.",
+          "name": "Block IP Address",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/27c03a30-0c9b-4b32-a941-48da653fdc3c",
+          "steps": [
+            {
+              "uuid": "27c03a30-0c9b-4b32-a941-48da653fdc3c",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "ef5dacdb-3cef-4a90-9f36-3372e89c252a",
+                "title": "Check Point Firewall: Block IP Address",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "1be9f7fd-f2e0-41f7-b66c-350527eb6504",
+              "@type": "WorkflowStep",
+              "name": "Block IP Address",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "block_ip",
+                "operationTitle": "Block IP Address",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "adcac85f-3b42-495e-b4c8-c698334d62a8",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Block IP Address",
+              "sourceStep": "/api/3/workflow_steps/27c03a30-0c9b-4b32-a941-48da653fdc3c",
+              "targetStep": "/api/3/workflow_steps/1be9f7fd-f2e0-41f7-b66c-350527eb6504"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "786d1fc3-26da-455e-8335-513625f19ba9",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Blocks applications using the Application Block Policy that you have specified while configuring the Check Point Firewall connector. See the Configuration parameters section.",
+          "name": "Block Applications",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/a5054f51-deea-4a79-b110-3268edcedc0d",
+          "steps": [
+            {
+              "uuid": "a5054f51-deea-4a79-b110-3268edcedc0d",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "9b8ff2ec-2fc9-4a3c-8981-f452a3bdda92",
+                "title": "Check Point Firewall: Block Applications",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "2665cbbe-bc22-400e-956a-2ee120edcdd5",
+              "@type": "WorkflowStep",
+              "name": "Block Applications",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "block_applications",
+                "operationTitle": "Block Applications",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "8bd60f99-8c0c-4b12-a427-dc71c1ff0f2e",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Block Applications",
+              "sourceStep": "/api/3/workflow_steps/a5054f51-deea-4a79-b110-3268edcedc0d",
+              "targetStep": "/api/3/workflow_steps/2665cbbe-bc22-400e-956a-2ee120edcdd5"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "0c2b8d8f-976f-4f3c-b75a-0e4918c51e49",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Blocks URLs using the URL Block Policy that you have specified while configuring the Check Point Firewall connector. See the Configuration parameters section.",
+          "name": "Block URLs",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/f15281cd-f030-4bb9-8b44-3d85f7ad7f4c",
+          "steps": [
+            {
+              "uuid": "f15281cd-f030-4bb9-8b44-3d85f7ad7f4c",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "9a4b6b43-a5d6-436d-81c9-50f3215f1f10",
+                "title": "Check Point Firewall: Block URLs",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "dc6dc4ab-917d-4fb5-9c77-2cd00418cb9c",
+              "@type": "WorkflowStep",
+              "name": "Block URLs",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "block_urls",
+                "operationTitle": "Block URLs",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "2e031990-6dd3-4bff-a3e0-72eb1cbf0125",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Block URLs",
+              "sourceStep": "/api/3/workflow_steps/f15281cd-f030-4bb9-8b44-3d85f7ad7f4c",
+              "targetStep": "/api/3/workflow_steps/dc6dc4ab-917d-4fb5-9c77-2cd00418cb9c"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "2c427b73-caa9-49ff-9807-da3890fe066b",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Unblocks IP addresses using the IP Block Policy that you have specified while configuring the Check Point Firewall connector. See the Configuration parameters section.",
+          "name": "Unblock IP Address",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/82484a92-feca-48bf-a5aa-9c1d4043a167",
+          "steps": [
+            {
+              "uuid": "82484a92-feca-48bf-a5aa-9c1d4043a167",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "e694486e-a5b2-49a2-801b-c8b584b3b81f",
+                "title": "Check Point Firewall: Unblock IP Address",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "7c0590d6-69b9-4d4b-a48e-00997a864463",
+              "@type": "WorkflowStep",
+              "name": "Unblock IP Address",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "unblock_ip",
+                "operationTitle": "Unblock IP Address",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "15a91758-24aa-4746-b315-eb23d6ee7d6a",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Unblock IP Address",
+              "sourceStep": "/api/3/workflow_steps/82484a92-feca-48bf-a5aa-9c1d4043a167",
+              "targetStep": "/api/3/workflow_steps/7c0590d6-69b9-4d4b-a48e-00997a864463"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "5da1c345-b28f-4866-a22a-921b361d5494",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Unblocks URLs using the URL Block Policy that you have specified while configuring the Check Point Firewall connector. See the Configuration parameters section.",
+          "name": "Unblock URLs",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/43756ccb-4a37-468e-ad3b-f554fe3e9b8c",
+          "steps": [
+            {
+              "uuid": "43756ccb-4a37-468e-ad3b-f554fe3e9b8c",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "1f2d18fd-2043-4f9b-9287-017731dcb3a6",
+                "title": "Check Point Firewall: Unblock URLs",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "39bfa85b-0c18-4100-888f-ffdad4b0979e",
+              "@type": "WorkflowStep",
+              "name": "Unblock URLs",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "unblock_urls",
+                "operationTitle": "Unblock URLs",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "87542a88-d010-41be-ab2a-550e058b0c0c",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Unblock URLs",
+              "sourceStep": "/api/3/workflow_steps/43756ccb-4a37-468e-ad3b-f554fe3e9b8c",
+              "targetStep": "/api/3/workflow_steps/39bfa85b-0c18-4100-888f-ffdad4b0979e"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "20a02962-7be8-4ac2-8ad7-c211d8eaa38a",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Unblocks applications using the Application Block Policy that you have specified while configuring the Check Point Firewall connector. See the Configuration parameters section.",
+          "name": "Unblock Applications",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/3f25fd36-da5b-439a-b23d-8d3b57c3640c",
+          "steps": [
+            {
+              "uuid": "3f25fd36-da5b-439a-b23d-8d3b57c3640c",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "ef711e3b-41b1-4ff4-b177-ad0790202392",
+                "title": "Check Point Firewall: Unblock Applications",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "6df3d305-104f-46b1-a220-930d3ae6f477",
+              "@type": "WorkflowStep",
+              "name": "Unblock Applications",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "unblock_applications",
+                "operationTitle": "Unblock Applications",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "edc22255-b409-4eb1-a9ab-1d3983084daf",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Unblock Applications",
+              "sourceStep": "/api/3/workflow_steps/3f25fd36-da5b-439a-b23d-8d3b57c3640c",
+              "targetStep": "/api/3/workflow_steps/6df3d305-104f-46b1-a220-930d3ae6f477"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "f6f04a14-9f9d-4357-84c6-5d82bcd9f0b0",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Retrieves a list of URLs that are blocked on Check Point Firewall.",
+          "name": "Get Blocked URLs",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/3b32680e-17a9-4db4-95de-e87bbf70be4a",
+          "steps": [
+            {
+              "uuid": "3b32680e-17a9-4db4-95de-e87bbf70be4a",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "e5d58db3-ed53-46b2-9374-2e4f829f9d5c",
+                "title": "Check Point Firewall: Get Blocked URLs",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "f07b4539-df84-4e17-ac15-d3476a4fbd87",
+              "@type": "WorkflowStep",
+              "name": "Get Blocked URLs",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "get_blocked_urls",
+                "operationTitle": "Get Blocked URLs",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "5b089e48-b4b9-40a0-bde2-399e8e26fdd0",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Blocked URLs",
+              "sourceStep": "/api/3/workflow_steps/3b32680e-17a9-4db4-95de-e87bbf70be4a",
+              "targetStep": "/api/3/workflow_steps/f07b4539-df84-4e17-ac15-d3476a4fbd87"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "f09efd35-ce36-4d45-acab-934e154773af",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Retrieves a list of IP Addresses that are blocked on Check Point Firewall.",
+          "name": "Get Blocked IP Addresses",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/d2b7a2b4-591b-446b-963d-cc9ae1567933",
+          "steps": [
+            {
+              "uuid": "d2b7a2b4-591b-446b-963d-cc9ae1567933",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "391e7aca-661f-4665-9aa9-b4d127aab6e5",
+                "title": "Check Point Firewall: Get Blocked IP Addresses",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "35eb61d5-cb09-41b4-88a5-0ad7b7c0cb32",
+              "@type": "WorkflowStep",
+              "name": "Get Blocked IP Addresses",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "get_blocked_ip_addresses",
+                "operationTitle": "Get Blocked IP Addresses",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "af3bb5e7-4d5c-4e49-93b6-6154731d67ff",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Blocked IP Addresses",
+              "sourceStep": "/api/3/workflow_steps/d2b7a2b4-591b-446b-963d-cc9ae1567933",
+              "targetStep": "/api/3/workflow_steps/35eb61d5-cb09-41b4-88a5-0ad7b7c0cb32"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "56754237-9b70-4dd9-a691-1bed714edad9",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Retrieves a list of application names that are blocked on Check Point Firewall.",
+          "name": "Get Blocked Application Names",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/44993483-f1e1-48e8-b3e1-d4e48f253156",
+          "steps": [
+            {
+              "uuid": "44993483-f1e1-48e8-b3e1-d4e48f253156",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "20441edf-0bb4-44fe-81c1-96d7e6cf63a7",
+                "title": "Check Point Firewall: Get Blocked Application Names",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "65d7f723-7984-4d80-bbad-86c2e64f56a7",
+              "@type": "WorkflowStep",
+              "name": "Get Blocked Application Names",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "get_blocked_application_names",
+                "operationTitle": "Get Blocked Application Names",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "6a5d81e1-a445-471d-b368-9c0f3b3a4a0b",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Blocked Application Names",
+              "sourceStep": "/api/3/workflow_steps/44993483-f1e1-48e8-b3e1-d4e48f253156",
+              "targetStep": "/api/3/workflow_steps/65d7f723-7984-4d80-bbad-86c2e64f56a7"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "10f3f333-215f-4736-83f7-d0c87d59a2fc",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Retrieves a list of active sessions from Check Point Firewall.",
+          "name": "Get Sessions",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/6af9b613-8bbd-42f7-bca7-ed94a397390d",
+          "steps": [
+            {
+              "uuid": "6af9b613-8bbd-42f7-bca7-ed94a397390d",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "aa9f3f96-ad4c-43bd-b405-9ebf775f54e3",
+                "title": "Check Point Firewall: Get Sessions",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "38bb792c-7b35-45e4-92f6-f5b4b7831464",
+              "@type": "WorkflowStep",
+              "name": "Get Sessions",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "show_sessions",
+                "operationTitle": "Get Sessions",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "bf929b51-33a4-47d9-9c0c-956cffb15ca3",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Sessions",
+              "sourceStep": "/api/3/workflow_steps/6af9b613-8bbd-42f7-bca7-ed94a397390d",
+              "targetStep": "/api/3/workflow_steps/38bb792c-7b35-45e4-92f6-f5b4b7831464"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "9b5fe144-2e3a-4295-ad40-27a1fa70714a",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Retrieves details of the session, based on the session UID that you have specified, from Check Point Firewall.",
+          "name": "Get Session",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/d1c23a14-5db4-451a-bfc5-b2e6c272ab8c",
+          "steps": [
+            {
+              "uuid": "d1c23a14-5db4-451a-bfc5-b2e6c272ab8c",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "85921f43-8b7a-456a-9ab3-09f8ca9a3d58",
+                "title": "Check Point Firewall: Get Session",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "1c18b4c6-e069-412b-b1f3-a277277187bb",
+              "@type": "WorkflowStep",
+              "name": "Get Session",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "get_session",
+                "operationTitle": "Get Session",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "4a30d7a6-98fe-46ec-94d7-49eb126e6bcf",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Session",
+              "sourceStep": "/api/3/workflow_steps/d1c23a14-5db4-451a-bfc5-b2e6c272ab8c",
+              "targetStep": "/api/3/workflow_steps/1c18b4c6-e069-412b-b1f3-a277277187bb"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "87e59958-32da-4afe-8785-7beb2586db1c",
+          "collection": "/api/3/workflow_collections/26f6fe9b-58f2-486f-946a-0350c84f0009",
+          "triggerLimit": null,
+          "description": "Terminates a session on Check Point Firewall, based on the Session UID you have specified.",
+          "name": "Terminate Session",
+          "tag": "#Check Point Firewall",
+          "recordTags": [
+            "Checkpoint",
+            "checkpoint-firewall"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/97b58a46-e419-4304-ab1d-05729ef9e585",
+          "steps": [
+            {
+              "uuid": "97b58a46-e419-4304-ab1d-05729ef9e585",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "c8f2e13b-0946-4848-bfdc-e85c4af4bd65",
+                "title": "Check Point Firewall: Terminate Session",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "608e1d4e-b79a-4594-867c-f92b580f30d7",
+              "@type": "WorkflowStep",
+              "name": "Terminate Session",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Check Point Firewall",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "checkpoint-firewall",
+                "operation": "discard_session",
+                "operationTitle": "Terminate Session",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "607372ca-e687-45da-b51a-d8086a221f97",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Terminate Session",
+              "sourceStep": "/api/3/workflow_steps/97b58a46-e419-4304-ab1d-05729ef9e585",
+              "targetStep": "/api/3/workflow_steps/608e1d4e-b79a-4594-867c-f92b580f30d7"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

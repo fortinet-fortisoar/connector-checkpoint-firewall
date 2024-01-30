@@ -1,0 +1,399 @@
+{
+  "name": "checkpoint-firewall",
+  "label": "Check Point Firewall",
+  "description": "Check Point Firewall that can use for block/unblock IP, Application, URL",
+  "publisher": "Community",
+  "cs_approved": false,
+  "cs_compatible": true,
+  "version": "1.2.0",
+  "category": "firewall",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.2.0/check-point-firewall/385/check-point-firewall-v1-2-0",
+  "icon_small_name": "CheckPoint_32X32.png",
+  "icon_large_name": "CheckPoint_80X80.png",
+  "configuration": {
+    "fields": [
+      {
+        "title": "Server URL",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "name": "address",
+        "description": "IP address or Hostname of the Check Point Firewall server to which you will connect and perform automated operations."
+      },
+      {
+        "title": "Port",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "integer",
+        "name": "port",
+        "description": "Port number used for connecting to the Check Point Firewall server."
+      },
+      {
+        "title": "Username",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "name": "username",
+        "description": "Username to access the Check Point Firewall server to which you will connect and perform the automated operations."
+      },
+      {
+        "title": "Password",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "password",
+        "name": "password",
+        "description": "Password to access the Check Point Firewall server to which you will connect and perform the automated operations."
+      },
+      {
+        "title": "IP Block Policy (Network Group Name)",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "name": "ip_block_policy",
+        "description": "List of the IP Hosts that you have specified in Check Point Firewall for blocking or unblocking IP addresses. See the Blocking or Unblocking IP addresses, URLs, or applications in Check Point Firewall section."
+      },
+      {
+        "title": "URL Block Policy (Application/Site Name)",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "name": "url_block_policy",
+        "description": "Name of the URL Group that you have specified in Check Point Firewall for blocking or unblocking URLs. See the Blocking or Unblocking IP addresses, URLs, or applications in Check Point Firewall section."
+      },
+      {
+        "title": "Application Block Policy (Application/Site Group Name)",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "name": "app_block_policy",
+        "description": "Name of the application group that you have specified in Check Point Firewall for blocking or unblocking applications. See the Blocking or Unblocking IP addresses, URLs, or applications in Check Point Firewall section."
+      },
+      {
+        "title": "Verify SSL",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "type": "checkbox",
+        "name": "verify_ssl",
+        "value": true,
+        "description": "Specifies whether the SSL certificate for the server is to be verified or not.By default, this option is set as True."
+      },
+      {
+        "title": "Install Policy After Publish",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "type": "checkbox",
+        "name": "install_policy",
+        "value": true,
+        "description": "If you select this option, i.e., set it as True, then the Check Point Firewall connector will install the Policy API immediately after adding or removing items from the policy."
+      }
+    ]
+  },
+  "operations": [
+    {
+      "operation": "check_policies",
+      "title": "Validate Configuration Policies",
+      "category": "investigation",
+      "annotation": "validate_policies",
+      "description": "Checks whether the policies that you have mentioned in the Configuration parameters section are valid or not.",
+      "parameters": [],
+      "enabled": true,
+      "output_schema": {
+        "Application Block Policy": "",
+        "IP Address Block Policy": "",
+        "URL Block Policy": ""
+      }
+    },
+    {
+      "operation": "get_list_of_applications",
+      "title": "Get Applications Detail",
+      "category": "investigation",
+      "annotation": "get_app_details",
+      "description": "Retrieves a list of applications and associated details from Check Point Firewall.",
+      "parameters": [
+        {
+          "title": "Start Index",
+          "tooltip": "Skip number of records from result",
+          "type": "integer",
+          "name": "start_index",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "value": 0,
+          "description": "Start Index from where you want to retrieve results (skip the number of records from the result) from Check Point Firewall."
+        },
+        {
+          "title": "Number of Results (Range: 1 To 500)",
+          "type": "integer",
+          "name": "limit",
+          "value": 50,
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "Number of results you want to display. The maximum number of results that can be displayed is 500."
+        }
+      ],
+      "enabled": true,
+      "output_schema": {
+        "to": "",
+        "total": "",
+        "from": "",
+        "objects": [
+          {
+            "domain": {
+              "domain-type": "",
+              "name": "",
+              "uid": ""
+            },
+            "name": "",
+            "uid": "",
+            "type": ""
+          }
+        ]
+      }
+    },
+    {
+      "operation": "block_ip",
+      "title": "Block IP Address",
+      "category": "containment",
+      "annotation": "block_ip",
+      "description": "Blocks IP addresses using the IP Block Policy that you have specified while configuring the Check Point Firewall connector. See the Configuration parameters section.",
+      "parameters": [
+        {
+          "title": "IP Address (In CSV or List Format)",
+          "type": "text",
+          "name": "ip_address_list",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "IP addresses that you want to block on Check Point Firewall. IP addresses must be in the list or CSV format.For example, [\"X..X.X.X\", \"Y.Y.Y.Y\"]"
+        }
+      ],
+      "enabled": true,
+      "output_schema": {}
+    },
+    {
+      "operation": "block_applications",
+      "title": "Block Applications",
+      "category": "containment",
+      "annotation": "block_app",
+      "description": "Blocks applications using the Application Block Policy that you have specified while configuring the Check Point Firewall connector. See the Configuration parameters section.",
+      "parameters": [
+        {
+          "title": "Application Names (In CSV or List Format)",
+          "type": "text",
+          "name": "app_list",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "List of application names that you want to block on Check Point Firewall. Application names must be in the list format.For example, [\"TeamViewer FileTransfer\", \"TeamViewer Conferencing\"]"
+        }
+      ],
+      "enabled": true,
+      "output_schema": {}
+    },
+    {
+      "operation": "block_urls",
+      "title": "Block URLs",
+      "category": "containment",
+      "annotation": "block_url",
+      "description": "Blocks URLs using the URL Block Policy that you have specified while configuring the Check Point Firewall connector. See the Configuration parameters section.",
+      "parameters": [
+        {
+          "title": "URLs (In CSV or List Format)",
+          "type": "text",
+          "name": "url_list",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "URLs that you want to block on Check Point Firewall. URLs must be in the list or CSV format.For example, [\"www.example1.com\", \"www.example2.com\"]"
+        }
+      ],
+      "enabled": true,
+      "output_schema": {}
+    },
+    {
+      "operation": "unblock_ip",
+      "title": "Unblock IP Address",
+      "category": "remediation",
+      "annotation": "unblock_ip",
+      "description": "Unblocks IP addresses using the IP Block Policy that you have specified while configuring the Check Point Firewall connector. See the Configuration parameters section.",
+      "parameters": [
+        {
+          "title": "IP Address (In CSV or List Format)",
+          "type": "text",
+          "name": "ip_address_list",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "IP addresses that you want to unblock on Check Point Firewall. IP addresses must be in the list or CSV format.For example, [\"www.example1.com\", \"www.example2.com\"]"
+        }
+      ],
+      "enabled": true,
+      "output_schema": {}
+    },
+    {
+      "operation": "unblock_urls",
+      "title": "Unblock URLs",
+      "category": "remediation",
+      "annotation": "unblock_url",
+      "description": "Unblocks URLs using the URL Block Policy that you have specified while configuring the Check Point Firewall connector. See the Configuration parameters section.",
+      "parameters": [
+        {
+          "title": "URLs (In CSV or List Format)",
+          "type": "text",
+          "name": "url_list",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "URLs that you want to unblock on Check Point Firewall. URLs must be in the list or CSV format.For example, [\"www.example1.com\", \"www.example2.com\"]"
+        }
+      ],
+      "enabled": true,
+      "output_schema": {}
+    },
+    {
+      "operation": "unblock_applications",
+      "title": "Unblock Applications",
+      "category": "remediation",
+      "annotation": "unblock_app",
+      "description": "Unblocks applications using the Application Block Policy that you have specified while configuring the Check Point Firewall connector. See the Configuration parameters section.",
+      "parameters": [
+        {
+          "title": "Application Names (In CSV or List Format)",
+          "type": "text",
+          "name": "app_list",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "List of application names that you want to block on Check Point Firewall. Application names must be in the list format.For example, [\"TeamViewer FileTransfer\", \"TeamViewer Conferencing\"]"
+        }
+      ],
+      "enabled": true,
+      "output_schema": {}
+    },
+    {
+      "operation": "get_blocked_urls",
+      "title": "Get Blocked URLs",
+      "category": "investigation",
+      "annotation": "get_blocked_url",
+      "description": "Retrieves a list of URLs that are blocked on Check Point Firewall.",
+      "parameters": [],
+      "enabled": true,
+      "output_schema": []
+    },
+    {
+      "operation": "get_blocked_ip_addresses",
+      "title": "Get Blocked IP Addresses",
+      "category": "investigation",
+      "annotation": "get_blocked_ip",
+      "description": "Retrieves a list of IP Addresses that are blocked on Check Point Firewall.",
+      "parameters": [],
+      "enabled": true,
+      "output_schema": []
+    },
+    {
+      "operation": "get_blocked_application_names",
+      "title": "Get Blocked Application Names",
+      "category": "investigation",
+      "annotation": "get_blocked_app",
+      "description": "Retrieves a list of application names that are blocked on Check Point Firewall.",
+      "parameters": [],
+      "enabled": true,
+      "output_schema": []
+    },
+    {
+      "operation": "show_sessions",
+      "title": "Get Sessions",
+      "category": "investigation",
+      "annotation": "get_sessions",
+      "description": "Retrieves a list of active sessions from Check Point Firewall.",
+      "parameters": [],
+      "enabled": true,
+      "output_schema": {
+        "to": "",
+        "total": "",
+        "from": "",
+        "objects": [
+          {
+            "domain": {
+              "domain-type": "",
+              "name": "",
+              "uid": ""
+            },
+            "uid": "",
+            "type": ""
+          }
+        ]
+      }
+    },
+    {
+      "operation": "get_session",
+      "title": "Get Session",
+      "category": "investigation",
+      "annotation": "get_session",
+      "description": "Retrieves details of the session, based on the session UID that you have specified, from Check Point Firewall.",
+      "parameters": [
+        {
+          "title": "Session UID",
+          "type": "text",
+          "name": "session_id",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "UID of the session for which you want to retrieve details from Check Point Firewall."
+        }
+      ],
+      "enabled": true,
+      "output_schema": {
+        "uid": "",
+        "state": "",
+        "ip-address": "",
+        "locks": "",
+        "application": "",
+        "connection-mode": "",
+        "type": "",
+        "description": "",
+        "changes": "",
+        "domain": {
+          "name": "",
+          "uid": "",
+          "domain-type": ""
+        },
+        "expired-session": "",
+        "in-work": ""
+      }
+    },
+    {
+      "operation": "discard_session",
+      "title": "Terminate Session",
+      "category": "remediation",
+      "annotation": "terminate_session",
+      "description": "Terminates a session on Check Point Firewall, based on the Session UID you have specified.",
+      "parameters": [
+        {
+          "title": "Session UID",
+          "type": "text",
+          "name": "session_uid",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "UID of the session that you want to discard on Check Point Firewall."
+        }
+      ],
+      "enabled": true,
+      "output_schema": {
+        "message": "",
+        "number-of-discarded-changes": ""
+      }
+    }
+  ]
+}
