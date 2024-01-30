@@ -5,7 +5,7 @@
   "publisher": "Community",
   "cs_approved": false,
   "cs_compatible": true,
-  "version": "1.2.0",
+  "version": "1.2.1",
   "category": "firewall",
   "help_online": "https://docs.fortinet.com/document/fortisoar/1.2.0/check-point-firewall/385/check-point-firewall-v1-2-0",
   "icon_small_name": "CheckPoint_32X32.png",
@@ -48,6 +48,15 @@
         "name": "password",
         "description": "Password to access the Check Point Firewall server to which you will connect and perform the automated operations."
       },
+      {
+        "title": "Domain",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "name": "domain",
+        "description": "Use domain to login to specific domain. Domain can be identified by name or UID."
+      },      
       {
         "title": "IP Block Policy (Network Group Name)",
         "required": false,
