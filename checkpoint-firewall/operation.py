@@ -35,6 +35,7 @@ class CheckPointOps:
         server_url = '{0}:{1}'.format(address, port)
         self.username = get_input(config, "username", str)
         self.password = get_input(config, "password", str)
+        self.domain = config.get("domain")
         self.ip_block_policy = get_input(config, "ip_block_policy", str)
         self.url_block_policy = get_input(config, "url_block_policy", str)
         self.app_block_policy = get_input(config, "app_block_policy", str)
@@ -136,6 +137,8 @@ class CheckPointOps:
             else:
                 url = '{0}{1}'.format(self.server_url, rest_api["LOGIN_API"])
                 payload = {'user': self.username, 'password': self.password}
+                if self.domain:
+                    payload.update({"domain":self.domain})
                 header = {'content-Type': 'application/json'}
                 api_response = requests.post(url, data=json.dumps(payload), headers=header, verify=self.verify_ssl)
                 if api_response.ok:
