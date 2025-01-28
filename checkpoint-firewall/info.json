@@ -6,8 +6,8 @@
   "cs_approved": false,
   "cs_compatible": true,
   "version": "2.2.0",
-  "category": "firewall",
-  "help_online": "",
+  "category": "Firewall and Network Protection",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/2.2.0/check-point-firewall/1026/check-point-firewall-v2-2-0",
   "icon_small_name": "CheckPoint_32X32.png",
   "icon_large_name": "CheckPoint_80X80.png",
   "configuration": {
